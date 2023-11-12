@@ -279,3 +279,5 @@ const reiniciarJuego = () => {
 
 // Iniciar el juego
 reiniciarJuego();
+
+//pre beta ok - LO UNICO NO SUMA BIEN EL PUTNAJE FINAL
