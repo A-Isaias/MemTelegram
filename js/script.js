@@ -6,7 +6,7 @@ const modal = document.getElementById("modal");
 const modalMessage = document.getElementById("modal-message");
 
 const mostrarModal = (mensaje) => {
-    modalMessage.innerHTML = mensaje.replace(/\n/g, "<br>"); // Reemplazar saltos de línea por <br>
+    modalMessage.innerHTML = mensaje.replace(/\n/g, "<br>");
     modal.style.display = "block";
 };
 
@@ -21,9 +21,9 @@ let parejas = 0;
 let intentos = 0;
 let puntuacion = 0;
 let consecutivas = 0;
-const puntuacionMaxima = 5000; // Puntuación máxima que se puede alcanzar
+const puntuacionMaxima = 5000;
 
-let tiempoRestante = 60; // Inicializar el tiempo en segundos
+let tiempoRestante = 60;
 let temporizador;
 
 function actualizarReloj() {
@@ -33,7 +33,7 @@ function actualizarReloj() {
         detenerJuego();
         mostrarGameOver("GAME OVER o sea perdiste culeado");
     } else {
-        tiempoRestante--; // Decrementa el tiempo restante
+        tiempoRestante--;
     }
 }
 
@@ -42,12 +42,10 @@ function detenerJuego() {
     fondo.pause();
 }
 
-// Iniciar el temporizador cuando comienza el juego
 function iniciarTemporizador() {
-    temporizador = setInterval(actualizarReloj, 1000); // Actualiza cada segundo
+    temporizador = setInterval(actualizarReloj, 1000);
 }
 
-// Reiniciar el temporizador cuando se reinicia el juego
 function reiniciarTemporizador() {
     detenerJuego();
     tiempoRestante = 60;
@@ -55,7 +53,6 @@ function reiniciarTemporizador() {
     iniciarTemporizador();
 }
 
-// Llama a esta función cuando inicies el juego
 iniciarTemporizador();
 let sonidos = document.querySelector("#sonidos");
 const fondo = document.querySelector("#fondo");
@@ -92,15 +89,12 @@ const comparar = (imagen1, imagen2) => {
         parejas++;
         num_parejas.innerHTML = parejas;
 
-        // Incrementar la cantidad de parejas consecutivas
         consecutivas++;
 
-        // Mostrar bonificación si hay más de una pareja consecutiva
         if (consecutivas > 1) {
             sonidos.src = "sounds/andersoniji.mp3";
             sonidos.volume = 1;
             sonidos.play();
-            //mostrarModal(`¡Bonus x${consecutivas} por encontrar parejas consecutivas!`);
         }
 
         if (parejas == 8) {
@@ -109,23 +103,18 @@ const comparar = (imagen1, imagen2) => {
             sonidos.play();
             mostrarModal("GANASTE! BIEN HECHO VIRGO!");
 
-            // Detener el fondo después de unos segundos
             setTimeout(() => {
                 detenerJuego();
             }, 2000);
 
-            // Mostrar el mensaje de reinicio y esperar a hacer clic
             setTimeout(() => {
                 calcularPuntuacionFinal();
 
-                // Calcular la bonificación por parejas consecutivas (exponencial)
                 const bonificacionConsecutivas = Math.pow(2, consecutivas - 1) * 20;
 
-                // Calcular puntos por intentos y tiempo restante
                 const puntosIntentos = Math.max(0, 20 - intentos) * 5;
                 const puntosTiempoRestante = tiempoRestante * 2;
 
-                // Calcular el total de puntos
                 const totalPuntos = puntuacion;
 
                 const desglosePuntos = `
@@ -160,7 +149,7 @@ const comparar = (imagen1, imagen2) => {
         tar_2.classList.remove("moverse", "vuelta");
         tar_1 = tar_2 = "";
         deshabilitarCartas = false;
-        consecutivas = 0; // Reiniciar la cantidad de parejas consecutivas al cometer un error
+        consecutivas = 0;
     }, 1500);
 };
 
@@ -169,10 +158,8 @@ const mostrarGameOver = (mensaje) => {
     sonidos.volume = 0.3;
     sonidos.play();
 
-    // Muestra el modal con el mensaje correspondiente
     mostrarModal(mensaje);
 
-    // No inicia automáticamente, espera a hacer clic para reiniciar
     document.addEventListener("click", reiniciarJuegoHandler);
 };
 
@@ -180,26 +167,23 @@ const mostrarGanador = () => {
     sonidos.src = "sounds/youwin.mp3";
     sonidos.volume = 0.3;
     sonidos.play();
-    //calcularPuntuacionFinal(); // Calcula la puntuación final al ganar
+
     mostrarModal(
         `¡Has ganado!\nPuntuación: ${puntuacion}\nHaz clic para reiniciar`
     );
+
     document.addEventListener("click", reiniciarJuegoHandler);
 };
 
 const calcularPuntuacionFinal = () => {
-    // Calcular bonificación por parejas consecutivas (exponencial)
     const bonificacionConsecutivas = Math.pow(2, consecutivas - 1) * 10;
 
-    // Calcular puntos por intentos y tiempo restante
     const puntosIntentos = Math.max(0, 20 - intentos) * 5;
     const puntosTiempoRestante = tiempoRestante * 2;
 
-    // Calcular el total de puntos
     const totalPuntos =
         puntosIntentos + puntosTiempoRestante + bonificacionConsecutivas;
 
-    // Mostrar la puntuación detallada
     const desglosePuntos = `
         Puntuación:
         Intentos (${intentos}): ${puntosIntentos} pts
@@ -210,24 +194,22 @@ const calcularPuntuacionFinal = () => {
 
     mostrarModal(desglosePuntos);
 
-    // Sumar puntos antes de asignar a la variable puntuacion
     puntuacion += totalPuntos;
 
-    // Limitar la puntuación a la puntuación máxima
-    //puntuacion = Math.min(puntuacion, puntuacionMaxima);
+    puntuacion = Math.min(puntuacion, puntuacionMaxima);
 };
 
 const darVuelta = (e) => {
     let tarjeta = e.target;
     if (tarjeta !== tar_1 && !deshabilitarCartas) {
-        tarjeta.classList.add("vuelta"); //al hacer clic cambia la clase de la card a "vuelta"
+        tarjeta.classList.add("vuelta");
         if (!tar_1) {
             return (tar_1 = tarjeta);
         }
         tar_2 = tarjeta;
         deshabilitarCartas = true;
         let img1 = tar_1.querySelector("img").src;
-        let img2 = tar_2.querySelector("img").src; // Corregir aquí: 'src' en lugar de 'scr'
+        let img2 = tar_2.querySelector("img").src;
         comparar(img1, img2);
     }
 };
@@ -239,15 +221,12 @@ const reiniciarJuegoHandler = () => {
 };
 
 const reiniciarJuego = () => {
-    // Detener el fondo actual
     fondo.pause();
     fondo.currentTime = 0;
 
-    // Reiniciar el fondo
     fondo.src = "sounds/background.mp3";
     fondo.volume = 0.1;
 
-    // Reiniciar las demás variables y elementos del juego
     parejas = 0;
     intentos = 0;
     tiempoRestante = 60;
@@ -258,7 +237,7 @@ const reiniciarJuego = () => {
 
     tar_1 = tar_2 = "";
     deshabilitarCartas = false;
-    consecutivas = 0; // Reiniciar la cantidad de parejas consecutivas al reiniciar el juego
+    consecutivas = 0;
 
     let fichas = [1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8];
     fichas.sort(() => {
@@ -273,11 +252,7 @@ const reiniciarJuego = () => {
         tarjeta.addEventListener("click", darVuelta);
     });
 
-    // Reproducir el fondo después de reiniciar
     fondo.play();
 };
 
-// Iniciar el juego
 reiniciarJuego();
-
-//pre beta ok - LO UNICO NO SUMA BIEN EL PUTNAJE FINAL
