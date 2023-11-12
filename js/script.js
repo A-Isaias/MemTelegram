@@ -129,7 +129,7 @@ setTimeout(() => {
     const desglosePuntos = `
         Puntuación:
         Intentos (${intentos}): ${puntosIntentos} pts
-        Tiempo restante (${tiempoRestante} segundos): ${puntosTiempoRestante} pts
+        Tiempo restante (${tiempoRestante} seg.): ${puntosTiempoRestante} pts
         Bonus por combo (${consecutivas}): ${bonificacionConsecutivas} pts
         Total: ${totalPuntos} pts
     `;
@@ -184,18 +184,36 @@ const mostrarGanador = () => {
 };
 
 const calcularPuntuacionFinal = () => {
-    const tiempoRestantePuntos = tiempoRestante * 2;
-    const intentosPuntos = Math.max(0, 20 - intentos) * 5;
-
     // Calcular bonificación por parejas consecutivas (exponencial)
     const bonificacionConsecutivas = Math.pow(2, consecutivas - 1) * 10;
 
-    // Sumar puntos
-    puntuacion += tiempoRestantePuntos + intentosPuntos + bonificacionConsecutivas;
+    // Calcular puntos por intentos y tiempo restante
+    const puntosIntentos = Math.max(0, 20 - intentos) * 5;
+    const puntosTiempoRestante = tiempoRestante * 2;
 
-    // Limitar la puntuación a la puntuación máxima
-    puntuacion = Math.min(puntuacion, puntuacionMaxima);
+    // Calcular el total de puntos
+    const totalPuntos = puntosIntentos + puntosTiempoRestante + bonificacionConsecutivas;
+
+    // Mostrar la puntuación detallada
+    const desglosePuntos = `
+        Puntuación:
+        Intentos (${intentos}): ${puntosIntentos} pts
+        Tiempo restante (${tiempoRestante} seg.): ${puntosTiempoRestante} pts
+        Bonus por combo (${consecutivas}): ${bonificacionConsecutivas} pts
+        Total: ${totalPuntos} pts
+    `;
+
+    
+    mostrarModal(desglosePuntos);
+
+    // Sumar puntos antes de asignar a la variable puntuacion
+    puntuacion += totalPuntos;
+
+     // Limitar la puntuación a la puntuación máxima
+    //puntuacion = Math.min(puntuacion, puntuacionMaxima);
 };
+   
+
 
 const darVuelta = (e) => {
     let tarjeta = e.target;
@@ -259,3 +277,5 @@ const reiniciarJuego = () => {
 
 // Iniciar el juego
 reiniciarJuego();
+
+//codigo pre beta ... ok 
