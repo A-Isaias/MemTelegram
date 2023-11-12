@@ -6,7 +6,7 @@ const modal = document.getElementById("modal");
 const modalMessage = document.getElementById("modal-message");
 
 const mostrarModal = (mensaje) => {
-    modalMessage.innerHTML = mensaje.replace(/\n/g, '<br>'); // Reemplazar saltos de línea por <br>
+    modalMessage.innerHTML = mensaje.replace(/\n/g, "<br>"); // Reemplazar saltos de línea por <br>
     modal.style.display = "block";
 };
 
@@ -14,12 +14,14 @@ const ocultarModal = () => {
     modal.style.display = "none";
 };
 
-let tar_1, tar_2, deshabilitarCartas = false;
+let tar_1,
+    tar_2,
+    deshabilitarCartas = false;
 let parejas = 0;
 let intentos = 0;
 let puntuacion = 0;
 let consecutivas = 0;
-const puntuacionMaxima = 1000; // Puntuación máxima que se puede alcanzar
+const puntuacionMaxima = 5000; // Puntuación máxima que se puede alcanzar
 
 let tiempoRestante = 60; // Inicializar el tiempo en segundos
 let temporizador;
@@ -72,10 +74,10 @@ document.addEventListener("click", () => {
 const sonidoFondo = (e) => {
     if (fondo.volume == 0.0) {
         fondo.volume = 0.1;
-        return escuchar.innerHTML = "Mutear sonido";
+        return (escuchar.innerHTML = "Mutear sonido");
     }
     fondo.volume = 0.0;
-    return escuchar.innerHTML = "Habilitar sonido";
+    return (escuchar.innerHTML = "Habilitar sonido");
 };
 
 escuchar.addEventListener("click", sonidoFondo);
@@ -112,31 +114,31 @@ const comparar = (imagen1, imagen2) => {
                 detenerJuego();
             }, 2000);
 
-           // Mostrar el mensaje de reinicio y esperar a hacer clic
-setTimeout(() => {
-    calcularPuntuacionFinal();
-    
-    // Calcular la bonificación por parejas consecutivas (exponencial)
-    const bonificacionConsecutivas = Math.pow(2, consecutivas - 1) * 20;
+            // Mostrar el mensaje de reinicio y esperar a hacer clic
+            setTimeout(() => {
+                calcularPuntuacionFinal();
 
-    // Calcular puntos por intentos y tiempo restante
-    const puntosIntentos = Math.max(0, 20 - intentos) * 5;
-    const puntosTiempoRestante = tiempoRestante * 2;
+                // Calcular la bonificación por parejas consecutivas (exponencial)
+                const bonificacionConsecutivas = Math.pow(2, consecutivas - 1) * 20;
 
-    // Calcular el total de puntos
-    const totalPuntos = puntuacion;
+                // Calcular puntos por intentos y tiempo restante
+                const puntosIntentos = Math.max(0, 20 - intentos) * 5;
+                const puntosTiempoRestante = tiempoRestante * 2;
 
-    const desglosePuntos = `
-        Puntuación:
-        Intentos (${intentos}): ${puntosIntentos} pts
-        Tiempo restante (${tiempoRestante} seg.): ${puntosTiempoRestante} pts
-        Bonus por combo (${consecutivas}): ${bonificacionConsecutivas} pts
-        Total: ${totalPuntos} pts
-    `;
+                // Calcular el total de puntos
+                const totalPuntos = puntuacion;
 
-    mostrarModal(desglosePuntos);
-    document.addEventListener("click", reiniciarJuegoHandler);
-}, 3000);
+                const desglosePuntos = `
+                Puntuación:
+                Intentos (${intentos}): ${puntosIntentos} pts
+                Tiempo restante (${tiempoRestante} seg.): ${puntosTiempoRestante} pts
+                Bonus por combo (${consecutivas}): ${bonificacionConsecutivas} pts
+                Total: ${totalPuntos} pts
+            `;
+
+                mostrarModal(desglosePuntos);
+                document.addEventListener("click", reiniciarJuegoHandler);
+            }, 3000);
         }
         tar_1.removeEventListener("click", darVuelta);
         tar_2.removeEventListener("click", darVuelta);
@@ -178,8 +180,10 @@ const mostrarGanador = () => {
     sonidos.src = "sounds/youwin.mp3";
     sonidos.volume = 0.3;
     sonidos.play();
-    calcularPuntuacionFinal(); // Calcula la puntuación final al ganar
-    mostrarModal(`¡Has ganado!\nPuntuación: ${puntuacion}\nHaz clic para reiniciar`);
+    //calcularPuntuacionFinal(); // Calcula la puntuación final al ganar
+    mostrarModal(
+        `¡Has ganado!\nPuntuación: ${puntuacion}\nHaz clic para reiniciar`
+    );
     document.addEventListener("click", reiniciarJuegoHandler);
 };
 
@@ -192,7 +196,8 @@ const calcularPuntuacionFinal = () => {
     const puntosTiempoRestante = tiempoRestante * 2;
 
     // Calcular el total de puntos
-    const totalPuntos = puntosIntentos + puntosTiempoRestante + bonificacionConsecutivas;
+    const totalPuntos =
+        puntosIntentos + puntosTiempoRestante + bonificacionConsecutivas;
 
     // Mostrar la puntuación detallada
     const desglosePuntos = `
@@ -203,29 +208,26 @@ const calcularPuntuacionFinal = () => {
         Total: ${totalPuntos} pts
     `;
 
-    
     mostrarModal(desglosePuntos);
 
     // Sumar puntos antes de asignar a la variable puntuacion
     puntuacion += totalPuntos;
 
-     // Limitar la puntuación a la puntuación máxima
+    // Limitar la puntuación a la puntuación máxima
     //puntuacion = Math.min(puntuacion, puntuacionMaxima);
 };
-   
-
 
 const darVuelta = (e) => {
     let tarjeta = e.target;
     if (tarjeta !== tar_1 && !deshabilitarCartas) {
         tarjeta.classList.add("vuelta"); //al hacer clic cambia la clase de la card a "vuelta"
         if (!tar_1) {
-            return tar_1 = tarjeta;
+            return (tar_1 = tarjeta);
         }
         tar_2 = tarjeta;
         deshabilitarCartas = true;
-        let img1 = tar_1.querySelector('img').src;
-        let img2 = tar_2.querySelector('img').src; // Corregir aquí: 'src' en lugar de 'scr'
+        let img1 = tar_1.querySelector("img").src;
+        let img2 = tar_2.querySelector("img").src; // Corregir aquí: 'src' en lugar de 'scr'
         comparar(img1, img2);
     }
 };
@@ -277,5 +279,3 @@ const reiniciarJuego = () => {
 
 // Iniciar el juego
 reiniciarJuego();
-
-//codigo pre beta ... ok 
