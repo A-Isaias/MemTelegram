@@ -68,10 +68,10 @@ document.addEventListener("click", () => {
 const sonidoFondo = (e) => {
     if (fondo.volume == 0.0) {
         fondo.volume = 0.1;
-        return (escuchar.innerHTML = "Mutear sonido");
+        return (escuchar.innerHTML = "Music: OFF");
     }
     fondo.volume = 0.0;
-    return (escuchar.innerHTML = "Habilitar sonido");
+    return (escuchar.innerHTML = "Music: ON");
 };
 
 escuchar.addEventListener("click", sonidoFondo);
