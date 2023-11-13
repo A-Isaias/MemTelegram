@@ -14,9 +14,7 @@ const ocultarModal = () => {
     modal.style.display = "none";
 };
 
-let tar_1,
-    tar_2,
-    deshabilitarCartas = false;
+let tar_1,tar_2,deshabilitarCartas = false;
 let parejas = 0;
 let intentos = 0;
 let puntuacion = 0;
@@ -67,7 +65,6 @@ document.addEventListener("click", () => {
         reproduccionIniciada = true;
     }
 });
-
 const sonidoFondo = (e) => {
     if (fondo.volume == 0.0) {
         fondo.volume = 0.1;
@@ -82,6 +79,10 @@ escuchar.addEventListener("click", sonidoFondo);
 const comparar = (imagen1, imagen2) => {
     intentos++;
     span_intentos.innerHTML = intentos;
+
+    // Actualizar el contador de combo (incluso si las imágenes no son iguales)
+    document.getElementById("contador-combo").textContent = consecutivas;
+
     if (imagen1 == imagen2) {
         sonidos.src = "sounds/success.mp3";
         sonidos.volume = 1;
@@ -96,7 +97,7 @@ const comparar = (imagen1, imagen2) => {
             sonidos.volume = 1;
             sonidos.play();
         }
-
+        
         if (parejas == 8) {
             sonidos.src = "sounds/youwin.mp3";
             sonidos.volume = 0.3;
@@ -115,7 +116,7 @@ const comparar = (imagen1, imagen2) => {
                 const puntosIntentos = Math.max(0, 20 - intentos) * 5;
                 const puntosTiempoRestante = tiempoRestante * 2;
 
-                const totalPuntos = puntuacion;
+                //const totalPuntos = puntuacion;
 
                 const desglosePuntos = `
                 Puntuación:
@@ -136,6 +137,7 @@ const comparar = (imagen1, imagen2) => {
         return console.log("Son Iguales");
     }
     console.log("no son iguales");
+    consecutivas = 0;// Reiniciar el contador de combo al cometer un error
     setTimeout(() => {
         tar_1.classList.add("moverse");
         tar_2.classList.add("moverse");
@@ -149,7 +151,8 @@ const comparar = (imagen1, imagen2) => {
         tar_2.classList.remove("moverse", "vuelta");
         tar_1 = tar_2 = "";
         deshabilitarCartas = false;
-        consecutivas = 0;
+        consecutivas = 0; // Reiniciar el contador de combo al cometer un error
+        
     }, 1500);
 };
 
@@ -163,17 +166,6 @@ const mostrarGameOver = (mensaje) => {
     document.addEventListener("click", reiniciarJuegoHandler);
 };
 
-const mostrarGanador = () => {
-    sonidos.src = "sounds/youwin.mp3";
-    sonidos.volume = 0.3;
-    sonidos.play();
-
-    mostrarModal(
-        `¡Has ganado!\nPuntuación: ${puntuacion}\nHaz clic para reiniciar`
-    );
-
-    document.addEventListener("click", reiniciarJuegoHandler);
-};
 
 const calcularPuntuacionFinal = () => {
     const bonificacionConsecutivas = Math.pow(2, consecutivas - 1) * 10;
@@ -197,6 +189,14 @@ const calcularPuntuacionFinal = () => {
     puntuacion += totalPuntos;
 
     puntuacion = Math.min(puntuacion, puntuacionMaxima);
+
+    const reiniciarDespuesDeMostrarPuntuacion = () => {
+        reiniciarJuego();
+        ocultarModal();
+        document.removeEventListener("click", reiniciarDespuesDeMostrarPuntuacion);
+    };
+
+    document.addEventListener("click", reiniciarDespuesDeMostrarPuntuacion);
 };
 
 const darVuelta = (e) => {
@@ -226,6 +226,9 @@ const reiniciarJuego = () => {
 
     fondo.src = "sounds/background.mp3";
     fondo.volume = 0.1;
+
+      // Reiniciar el contador de combo
+      document.getElementById("contador-combo").textContent = 0;
 
     parejas = 0;
     intentos = 0;

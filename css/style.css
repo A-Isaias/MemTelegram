@@ -20,6 +20,32 @@ body {
     padding: 25px;
 }
 
+.container .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.container h2 {
+  font-size: 18px;
+}
+
+.container #escuchar {
+  font-size: 14px;
+}
+
+.container #info-combo {
+  font-size: 16px;
+}
+
+.container #tiempo-restante {
+  font-size: 18px;
+}
+
+.container .header:last-child {
+  justify-content: center;
+}
 .cards, .card, .view {
     display: flex;
     align-items: center;
@@ -140,7 +166,7 @@ body {
     }
   
     .cards {
-      height: 500px; /* Ajusta el valor según sea necesario */
+      height: 450px; /* Ajusta el valor según sea necesario */
       width: 500px; /* Ajusta el valor según sea necesario */
     }
   
@@ -159,7 +185,7 @@ body {
     }
   
     .cards {
-      height: 600px; /* Ajusta el valor según sea necesario */
+      height: 540px; /* Ajusta el valor según sea necesario */
       width: 600px; /* Ajusta el valor según sea necesario */
     }
   
@@ -179,7 +205,7 @@ body {
     }
   
     .cards {
-      height: 650px; /* Ajusta el valor según sea necesario */
+      height: 600px; /* Ajusta el valor según sea necesario */
       width: 670px; /* Ajusta el valor según sea necesario */
     }
   
