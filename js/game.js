@@ -228,8 +228,11 @@ const mostrarGameOver = (mensaje) => {
     // Agregar mensaje
     modalContent.innerHTML += `<p>${mensaje}</p>`;
 
+    modalContent.innerHTML += `<br>`;
+
+
     // Agregar mensaje adicional
-    modalContent.innerHTML += "<p>Haz click para ver los records</p>";
+    modalContent.innerHTML += "<p>Haz click para ver los yeeecords</p>";
 
     // Agregar botones
     modalContent.innerHTML += "<br><button onclick='volverAlMenu()'>Volver al Menú</button> <button onclick='reiniciarJuegoHandler()'>Reiniciar Juego</button>";
@@ -338,43 +341,64 @@ const reiniciarJuego = () => {
     fondo.play();
 };
 
-// Función para cargar los highscores desde el JSON
+
+const manejarNuevoHighscore = () => {
+    // Puedes personalizar el formulario según tus necesidades
+    const nombreJugador = prompt("Ingresa tu nombre para guardar el highscore:");
+
+    if (nombreJugador) {
+        const nuevoHighscore = {
+            nombre: nombreJugador,
+            puntuacion: puntuacion,
+        };
+
+        // Guardar el nuevo highscore
+        guardarHighscores(nuevoHighscore)
+            .then(() => {
+                console.log("Highscore guardado correctamente.");
+            })
+            .catch((error) => {
+                console.error("Error al guardar highscore:", error);
+            });
+
+        // Redirigir a la página de highscores
+        window.location.href = "highscores.html";
+    } else {
+        reiniciarJuegoHandler();
+    }
+};
 const cargarHighscores = () => {
     return fetch("db/highscores.json")
         .then((response) => response.json())
         .catch((error) => console.error("Error al cargar highscores:", error));
 };
 
-// Función para guardar los highscores en el JSON
-const guardarHighscores = (nuevoHighscore) => {
-    return fetch("db/highscores.json", {
-        method: "POST", // Cambia a "PUT" si es necesario
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(nuevoHighscore),
-    })
-        .then((response) => response.json())
-        .catch((error) => console.error("Error al guardar highscores:", error));
-};
-
-// Función para verificar si la puntuación es suficientemente alta para estar en el top 10
 const verificarHighscore = (puntuacion) => {
-    // Lógica para verificar si la puntuación es suficientemente alta
-    // Si es así, abrir la página de highscores
-    if (puntuacion > 0) {
-        window.location.href = "highscores.html";
-    } else {
-        reiniciarJuegoHandler();
-    }
+    cargarHighscores()
+        .then((highscores) => {
+            // Comparar la puntuación con los highscores existentes
+            const puntajesAltos = highscores.map((hs) => hs.puntuacion);
+            const puntajeMinimo = Math.min(...puntajesAltos);
+
+            if (puntuacion > puntajeMinimo || highscores.length < 10) {
+                // La puntuación es lo suficientemente alta o hay menos de 10 highscores
+                manejarNuevoHighscore();
+            } else {
+                reiniciarJuegoHandler();
+            }
+        })
+        .catch((error) => {
+            console.error("Error al cargar highscores:", error);
+            reiniciarJuegoHandler();
+        });
 };
 
-// Función para manejar el evento click específico para highscores
 const manejarHighscoresClick = () => {
-    // Aquí llamamos la lógica de highscores, por ejemplo:
     cargarHighscores().then((highscores) => {
         console.log("Highscores cargados:", highscores);
     });
 };
 
 reiniciarJuego();
+
+
