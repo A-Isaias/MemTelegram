@@ -1,30 +1,23 @@
 
 const instruccionesJuego = `
-  Instrucciones del Juego - Memory Game
-
-  ¡Bienvenido al Memory Game!
-
-  Objetivo del Juego:
-  Encuentra todas las parejas de cartas iguales antes de que se agote el tiempo. Cada vez que encuentres una pareja, ganarás puntos. ¡Intenta conseguir la mayor puntuación posible!
-
-  Cómo Jugar:
-
-  Haz clic en las cartas para darles vuelta y revelar la imagen oculta.
-  Intenta recordar la ubicación de cada imagen para encontrar las parejas.
-  Encuentra todas las parejas antes de que el tiempo se agote.
-
-  Puntuación:
-
-  Cada pareja encontrada te otorga puntos.
-  Completa el juego rápidamente para obtener más puntos.
-  ¡Cuidado con el tiempo! Tu puntuación disminuirá si tardas demasiado.
-
-  Bonus:
-
-  Combina varias parejas consecutivas para obtener bonificaciones.
-  Utiliza tu memoria y habilidades para maximizar tu puntuación.
-
-  ¡Diviértete y demuestra tus habilidades en este desafiante Memory Game!
+¡Bienvenido al Memory Game del Grupo de telegram de Anderson Blog Ride!<br>
+<br> 
+<strong>Objetivo del Juego:</strong> Encuentra todas las parejas de cartas iguales antes de que<br>
+se agote el tiempo.Cada vez que encuentres una pareja, ganarás puntos.<br>
+<br>
+<strong>Cómo Jugar:</strong>Haz clic en las cartas para darles vuelta y revelar la imagen oculta.<br>
+Encuentra todas las parejas antes de que el tiempo se agote.<br>
+<br>
+<strong>Puntuación:</strong>Cada pareja encontrada te otorga puntos.<br>
+Completa el juego rápidamente para obtener más puntos.<br>
+¡Cuidado con el tiempo! Tu puntuación disminuirá si tardas demasiado.<br>
+<br>
+<strong>Bonus:</strong>Combina varias parejas consecutivas para obtener bonificaciones.<br>
+Utiliza tu memoria y habilidades para maximizar tu puntuación.<br>
+<br>
+¡Diviértete, comparte tus puntuaciones en el grupo y que el PAAWERR te acompañe!!<BR>
+<BR>
+HAZ CLICK PARA VOLVER AL MENU PRINCIPAL
 `;
 
 function iniciarJuego() {
@@ -47,9 +40,10 @@ function mostrarInstrucciones() {
     // Mostrar el modal
     modalInstrucciones.style.display = "block";
 
-    // Agregar evento para cerrar el modal al hacer clic fuera del contenido
+    // Agregar evento para cerrar el modal al hacer clic 
     window.onclick = function(event) {
-        if (event.target === modalInstrucciones) {
+        const modalContent = modalInstrucciones.querySelector(".modal-content-instrucciones");
+        if (event.target === modalInstrucciones || modalContent.contains(event.target)) {
             modalInstrucciones.style.display = "none";
         }
     };

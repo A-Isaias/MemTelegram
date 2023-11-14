@@ -5,7 +5,7 @@ const tiempoRestanteElemento = document.getElementById("tiempo-restante");
 const modal = document.getElementById("modal");
 const modalMessage = document.getElementById("modal-message");
 
-const mostrarModal = (mensaje) => {
+const mostrarModal = (mensaje, callback) => {
     const modalContent = document.querySelector(".modal-content");
     modalContent.innerHTML = ""; // Limpiar el contenido existente
 
@@ -20,7 +20,16 @@ const mostrarModal = (mensaje) => {
     buttonsContainer.innerHTML = "<br><button onclick='volverAlMenu()'>Volver al Menú</button> <button onclick='reiniciarJuegoHandler()'>Reiniciar Juego</button>";
     modalContent.appendChild(buttonsContainer);
 
+    // Mostrar el modal
     modal.style.display = "block";
+
+    // Llamar al callback después de que el usuario haga clic para cerrar el modal
+    document.addEventListener("click", () => {
+        ocultarModal();
+        if (callback && typeof callback === "function") {
+            callback();
+        }
+    });
 };
 
 const ocultarModal = () => {
@@ -32,7 +41,7 @@ const volverAlMenu = () => {
     window.location.href = "index.html"; // Cambia "index.html" por la ruta correcta de tu menú principal
 };
 
-let tar_1,tar_2,deshabilitarCartas = false;
+let tar_1, tar_2, deshabilitarCartas = false;
 let parejas = 0;
 let intentos = 0;
 let puntuacion = 0;
@@ -44,22 +53,22 @@ let temporizador;
 
 function actualizarReloj() {
     tiempoRestanteElemento.textContent = `Tiempo restante: ${tiempoRestante} segundos`;
-  
+
     if (tiempoRestante < 15) {
-      tiempoRestanteElemento.classList.add("cuenta-regresiva");
-      fondo.volume = 0.7;
+        tiempoRestanteElemento.classList.add("cuenta-regresiva");
+        fondo.volume = 0.7;
     } else {
-      tiempoRestanteElemento.classList.remove("cuenta-regresiva");
-      fondo.volume = 0.3;
+        tiempoRestanteElemento.classList.remove("cuenta-regresiva");
+        fondo.volume = 0.3;
     }
-  
+
     if (tiempoRestante === 0) {
-      detenerJuego();
-      mostrarGameOver("GAME OVER o sea perdiste culeado");
+        detenerJuego();
+        mostrarGameOver("GAME OVER o sea perdiste culeado");
     } else {
-      tiempoRestante--;
+        tiempoRestante--;
     }
-  }
+}
 
 function detenerJuego() {
     clearInterval(temporizador);
@@ -120,8 +129,6 @@ function calcularPuntosTiempoRestante(tiempoRestante) {
     return tiempoRestante * multiplicador;
 }
 
-
-
 const comparar = (imagen1, imagen2) => {
     intentos++;
     span_intentos.innerHTML = intentos;
@@ -143,7 +150,7 @@ const comparar = (imagen1, imagen2) => {
             sonidos.volume = 0.7;
             sonidos.play();
         }
-        
+
         if (parejas == 8) {
             sonidos.src = "sounds/youwin.mp3";
             sonidos.volume = 0.4;
@@ -151,7 +158,7 @@ const comparar = (imagen1, imagen2) => {
 
             detenerJuego();  // Detener el temporizador aquí
 
-            // mostrarModal("GANASTE! BIEN HECHO VIRGO!");   
+            // mostrarModal("GANASTE! BIEN HECHO VIRGO!");
 
             setTimeout(() => {
                 calcularPuntuacionFinal();
@@ -171,9 +178,11 @@ const comparar = (imagen1, imagen2) => {
                 Bonus por combo (${consecutivas}): ${bonificacionConsecutivas} pts
                 Total: ${totalPuntos} pts
                 `;
-                 
-                mostrarModal(desglosePuntos);
-                document.addEventListener("click", reiniciarJuegoHandler);
+
+                mostrarModal(desglosePuntos, () => {
+                    // Llamar a verificarHighscore con la puntuación actual
+                    verificarHighscore(puntuacion);
+                });
             }, 2000);
         }
         tar_1.removeEventListener("click", darVuelta);
@@ -198,7 +207,7 @@ const comparar = (imagen1, imagen2) => {
         tar_1 = tar_2 = "";
         deshabilitarCartas = false;
         consecutivas = 0; // Reiniciar el contador de combo al cometer un error
-        
+
     }, 1500);
 };
 
@@ -215,7 +224,6 @@ const mostrarGameOver = (mensaje) => {
     modalContent.innerHTML += mensaje + "<br><br><button onclick='volverAlMenu()'>Volver al Menú</button> <button onclick='reiniciarJuegoHandler()'>Reiniciar Juego</button>";
     modal.style.display = "block";
 };
-
 
 const calcularPuntuacionFinal = () => {
     const bonificacionConsecutivas = Math.pow(2, consecutivas - 1) * 10;
@@ -235,22 +243,14 @@ const calcularPuntuacionFinal = () => {
         <br>Total: ${totalPuntos} pts
     `;
 
-    mostrarModal(desglosePuntos);
+    mostrarModal(desglosePuntos, () => {
+        // Llamar a verificarHighscore con la puntuación actual
+        verificarHighscore(puntuacion);
+    });
 
     puntuacion += totalPuntos;
 
     puntuacion = Math.min(puntuacion, puntuacionMaxima);
-
-    // Mostrar botones para volver al menú principal o reiniciar el juego
-    modalMessage.innerHTML += "<br><br><button onclick='volverAlMenu()'>Volver al Menú</button> <button onclick='reiniciarJuegoHandler()'>Reiniciar Juego</button>";
-
-    const reiniciarDespuesDeMostrarPuntuacion = () => {
-        reiniciarJuego();
-        ocultarModal();
-        document.removeEventListener("click", reiniciarDespuesDeMostrarPuntuacion);
-    };
-
-    document.addEventListener("click", reiniciarDespuesDeMostrarPuntuacion);
 };
 
 const darVuelta = (e) => {
@@ -281,8 +281,8 @@ const reiniciarJuego = () => {
     fondo.src = "sounds/background.mp3";
     fondo.volume = 0.5;
 
-      // Reiniciar el contador de combo
-      document.getElementById("contador-combo").textContent = 0;
+    // Reiniciar el contador de combo
+    document.getElementById("contador-combo").textContent = 0;
 
     parejas = 0;
     intentos = 0;
@@ -310,6 +310,45 @@ const reiniciarJuego = () => {
     });
 
     fondo.play();
+};
+
+// Función para cargar los highscores desde el JSON
+const cargarHighscores = () => {
+    return fetch("db/highscores.json")
+        .then((response) => response.json())
+        .catch((error) => console.error("Error al cargar highscores:", error));
+};
+
+// Función para guardar los highscores en el JSON
+const guardarHighscores = (nuevoHighscore) => {
+    return fetch("db/highscores.json", {
+        method: "POST", // Cambia a "PUT" si es necesario
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(nuevoHighscore),
+    })
+        .then((response) => response.json())
+        .catch((error) => console.error("Error al guardar highscores:", error));
+};
+
+// Función para verificar si la puntuación es suficientemente alta para estar en el top 10
+const verificarHighscore = (puntuacion) => {
+    // Lógica para verificar si la puntuación es suficientemente alta
+    // Si es así, abrir la página de highscores
+    if (puntuacion > 0) {
+        window.location.href = "highscores.html";
+    } else {
+        reiniciarJuegoHandler();
+    }
+};
+
+// Función para manejar el evento click específico para highscores
+const manejarHighscoresClick = () => {
+    // Aquí llamamos la lógica de highscores, por ejemplo:
+    cargarHighscores().then((highscores) => {
+        console.log("Highscores cargados:", highscores);
+    });
 };
 
 reiniciarJuego();

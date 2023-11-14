@@ -98,6 +98,31 @@ label {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
   
+/* Estilo del modal de instrucciones */
+.modal-instrucciones {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content-instrucciones {
+  background-color: black;
+  font-size: 26px;
+  color: red;
+  text-align: center; /* Centra el texto */
+  padding: 20px;
+  margin: auto; /* Centra el modal verticalmente */
+  width: 60%;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+  
   /* Agrega estilos para el botón (puedes personalizar según tus preferencias) */
   button {
     margin-top: 20px;
@@ -115,38 +140,6 @@ label {
     background-color: #45a049;
   }
 
-  /* Estilo del modal de instrucciones */
-.modal-instrucciones {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-  }
-  
-  .modal-content-instrucciones {
-    background-color: black;
-    font-size: 26px;
-    color: red;
-    text-align: center;
-    padding: 20px;
-    margin: 15% auto;
-    width: 50%;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
- 
-  .modal-content-instrucciones p {
-    font-size: 20px; /* Ajusta el tamaño de fuente según sea necesario */
-    color: white; /* Ajusta el color del texto según sea necesario */
-    white-space: pre-line; /* Mantener los saltos de línea */
-    /* Otras propiedades de estilo según sea necesario */
-  }
-
-  
 
 /* Estilos específicos para resoluciones menores o iguales a 1366x768 */
 @media screen and (max-width: 1366px) {
@@ -155,35 +148,47 @@ label {
       max-height: 90%; /* Ajusta la altura según sea necesario */
       padding: 20px; /* Añadido para dar más espacio al contenido */
   }
-}
-  button {
-      font-size: 1.2em;
-      padding: 10px 15px; /* Ajusta el relleno del botón para que sea más proporcionado */
-  }
-
-  #dificultad {
-      font-size: 1em;
-      width: 50%; /* Hacer que el selector ocupe todo el ancho disponible */
-      max-width: 100%; /* Evitar que se desborde en pantallas pequeñas */
-      margin-bottom: 0px; /* Espaciado inferior más pequeño */
-      max-height: 80%;
-      box-sizing: border-box; /* Ajusta el modelo de caja para incluir el relleno y el borde */
-  }
-
-  /* Ajusta otros estilos según sea necesario para resoluciones menores */
-
-  body {
-      justify-content: flex-start; /* Alinea el contenido en la parte superior del cuerpo */
-      overflow: hidden; /* Evita que el contenido adicional sobresalga en la parte inferior */
-  }
-
-  img {
-    max-width: 90%;
-    height: auto;
-    border-radius: 10px;
-    margin-bottom: 15px;
+  utton {
+    font-size: 1.2em;
+    padding: 10px 15px; /* Ajusta el relleno del botón para que sea más proporcionado */
 }
 
+#dificultad {
+    font-size: 1em;
+    width: 50%; /* Hacer que el selector ocupe todo el ancho disponible */
+    max-width: 100%; /* Evitar que se desborde en pantallas pequeñas */
+    margin-bottom: 0px; /* Espaciado inferior más pequeño */
+    max-height: 80%;
+    box-sizing: border-box; /* Ajusta el modelo de caja para incluir el relleno y el borde */
+}
+
+/* Ajusta otros estilos según sea necesario para resoluciones menores */
+
+body {
+    justify-content: flex-start; /* Alinea el contenido en la parte superior del cuerpo */
+    overflow: hidden; /* Evita que el contenido adicional sobresalga en la parte inferior */
+}
+
+img {
+  max-width: 90%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+.modal-content-instrucciones {
+  background-color: black;
+  font-size: 20px;
+  color: red;
+  text-align: center; /* Centra el texto */
+  padding: 20px;
+  margin: auto; /* Centra el modal verticalmente */
+  width: 60%;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+}
+  
 
 
 

@@ -1,0 +1,12 @@
+[
+    {"posicion": 1, "nombre": "Anderson", "puntuacion": 1000},
+    {"posicion": 2, "nombre": "Ariel en Moto", "puntuacion": 900},
+    {"posicion": 3, "nombre": "Magda Baz", "puntuacion": 850},
+    {"posicion": 4, "nombre": "Javi Caba", "puntuacion": 760},
+    {"posicion": 5, "nombre": "Hugo Gallinger", "puntuacion": 200},
+    {"posicion": 6, "nombre": "Willy Caima", "puntuacion": 150},
+    {"posicion": 7, "nombre": "Agus Saavedra", "puntuacion": 100},
+    {"posicion": 8, "nombre": "Panda", "puntuacion": 50},
+    {"posicion": 9, "nombre": "Franco Joaquin", "puntuacion": 20},
+    {"posicion": 10, "nombre": "Apu", "puntuacion": 10}
+]
