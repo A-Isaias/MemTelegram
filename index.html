@@ -17,11 +17,18 @@
             <option value="dificil">Hard</option>
         </select>
         <br>
-        <!-- <label for="sonido">In game music:</label>
-        <input type="checkbox" id="sonido" checked> -->
+        <button onclick="mostrarInstrucciones()">Ver Instrucciones</button>
         <br>
         <button onclick="iniciarJuego()">Iniciar Juego</button>
     </div>
+    <!-- MODAL INSTRUCCIONES -->
+<div id="modal-instrucciones" class="modal">
+    <div class="modal-content-instrucciones">
+        <span class="close-button" title="Cerrar">&times;</span>
+        <!-- Contenido de las instrucciones -->
+        <div id="instrucciones-text" class="instrucciones-text"></div>
+    </div>
+</div>
     <audio id="intro-fondo" loop autoplay volume="0.1">
         <source src="sounds/intro-new.mp3" type="audio/mpeg">
     </audio>
