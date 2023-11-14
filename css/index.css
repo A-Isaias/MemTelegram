@@ -74,7 +74,7 @@ img {
 label {
     display: block; /* Asegura que la etiqueta sea una línea completa */
     margin-bottom: 10px; /* Espaciado inferior */
-    font-size: 2em; /* Tamaño de fuente */
+    font-size: 1.5em; /* Tamaño de fuente */
     color: #333; /* Color del texto */
 }
 
@@ -138,10 +138,52 @@ label {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
   
-  /* Agregar animación si deseas */
+ 
   .modal-content-instrucciones p {
     font-size: 20px; /* Ajusta el tamaño de fuente según sea necesario */
     color: white; /* Ajusta el color del texto según sea necesario */
     white-space: pre-line; /* Mantener los saltos de línea */
     /* Otras propiedades de estilo según sea necesario */
   }
+
+  
+
+/* Estilos específicos para resoluciones menores o iguales a 1366x768 */
+@media screen and (max-width: 1366px) {
+  .inicio-container {
+      max-width: 40%; /* Ajusta el ancho según sea necesario */
+      max-height: 90%; /* Ajusta la altura según sea necesario */
+      padding: 20px; /* Añadido para dar más espacio al contenido */
+  }
+}
+  button {
+      font-size: 1.2em;
+      padding: 10px 15px; /* Ajusta el relleno del botón para que sea más proporcionado */
+  }
+
+  #dificultad {
+      font-size: 1em;
+      width: 50%; /* Hacer que el selector ocupe todo el ancho disponible */
+      max-width: 100%; /* Evitar que se desborde en pantallas pequeñas */
+      margin-bottom: 0px; /* Espaciado inferior más pequeño */
+      max-height: 80%;
+      box-sizing: border-box; /* Ajusta el modelo de caja para incluir el relleno y el borde */
+  }
+
+  /* Ajusta otros estilos según sea necesario para resoluciones menores */
+
+  body {
+      justify-content: flex-start; /* Alinea el contenido en la parte superior del cuerpo */
+      overflow: hidden; /* Evita que el contenido adicional sobresalga en la parte inferior */
+  }
+
+  img {
+    max-width: 90%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+
+
+
