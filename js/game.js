@@ -15,6 +15,11 @@ const mostrarModal = (mensaje, callback) => {
     // Agregar contenido adicional (puedes personalizar según tus necesidades)
     modalContent.innerHTML += `<div>${mensaje.replace(/\n/g, "<br>")}</div>`;
 
+    modalContent.innerHTML += "<p>-</p>";
+
+    modalContent.innerHTML += "<p>Haz click para ver los Yeeecords</p>";
+
+
     // Agregar botones
     const buttonsContainer = document.createElement("div");
     buttonsContainer.innerHTML = "<br><button onclick='volverAlMenu()'>Volver al Menú</button> <button onclick='reiniciarJuegoHandler()'>Reiniciar Juego</button>";
@@ -220,9 +225,30 @@ const mostrarGameOver = (mensaje) => {
     const modalContent = document.querySelector(".modal-content");
     modalContent.innerHTML = "";
 
-    // Agregar mensaje y botones
-    modalContent.innerHTML += mensaje + "<br><br><button onclick='volverAlMenu()'>Volver al Menú</button> <button onclick='reiniciarJuegoHandler()'>Reiniciar Juego</button>";
+    // Agregar mensaje
+    modalContent.innerHTML += `<p>${mensaje}</p>`;
+
+    // Agregar mensaje adicional
+    modalContent.innerHTML += "<p>Haz click para ver los records</p>";
+
+    // Agregar botones
+    modalContent.innerHTML += "<br><button onclick='volverAlMenu()'>Volver al Menú</button> <button onclick='reiniciarJuegoHandler()'>Reiniciar Juego</button>";
+
+    // Mostrar el modal
     modal.style.display = "block";
+
+    // Redirigir a highscores.html al hacer clic en cualquier lugar, excepto en los botones
+    document.addEventListener("click", irAHighscores);
+};
+
+const irAHighscores = (event) => {
+    // Verificar si el clic fue en los botones
+    const botonVolverMenu = document.querySelector("button[onclick='volverAlMenu()']");
+    const botonReiniciarJuego = document.querySelector("button[onclick='reiniciarJuegoHandler()']");
+
+    if (!botonVolverMenu.contains(event.target) && !botonReiniciarJuego.contains(event.target)) {
+        window.location.href = "highscores.html";
+    }
 };
 
 const calcularPuntuacionFinal = () => {
