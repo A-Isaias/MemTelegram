@@ -44,14 +44,22 @@ let temporizador;
 
 function actualizarReloj() {
     tiempoRestanteElemento.textContent = `Tiempo restante: ${tiempoRestante} segundos`;
-
-    if (tiempoRestante === 0) {
-        detenerJuego();
-        mostrarGameOver("GAME OVER o sea perdiste culeado");
+  
+    if (tiempoRestante < 15) {
+      tiempoRestanteElemento.classList.add("cuenta-regresiva");
+      fondo.volume = 0.7;
     } else {
-        tiempoRestante--;
+      tiempoRestanteElemento.classList.remove("cuenta-regresiva");
+      fondo.volume = 0.3;
     }
-}
+  
+    if (tiempoRestante === 0) {
+      detenerJuego();
+      mostrarGameOver("GAME OVER o sea perdiste culeado");
+    } else {
+      tiempoRestante--;
+    }
+  }
 
 function detenerJuego() {
     clearInterval(temporizador);
@@ -123,7 +131,7 @@ const comparar = (imagen1, imagen2) => {
 
     if (imagen1 == imagen2) {
         sonidos.src = "sounds/success.mp3";
-        sonidos.volume = 0.9;
+        sonidos.volume = 0.6;
         sonidos.play();
         parejas++;
         num_parejas.innerHTML = parejas;
@@ -132,13 +140,13 @@ const comparar = (imagen1, imagen2) => {
 
         if (consecutivas > 1) {
             sonidos.src = "sounds/andersoniji.mp3";
-            sonidos.volume = 0.9;
+            sonidos.volume = 0.7;
             sonidos.play();
         }
         
         if (parejas == 8) {
             sonidos.src = "sounds/youwin.mp3";
-            sonidos.volume = 0.3;
+            sonidos.volume = 0.4;
             sonidos.play();
 
             detenerJuego();  // Detener el temporizador aquí
@@ -196,7 +204,7 @@ const comparar = (imagen1, imagen2) => {
 
 const mostrarGameOver = (mensaje) => {
     sonidos.src = "sounds/gameover.mp3";
-    sonidos.volume = 0.3;
+    sonidos.volume = 0.4;
     sonidos.play();
 
     // Limpiar el contenido existente del modal
@@ -271,7 +279,7 @@ const reiniciarJuego = () => {
     fondo.currentTime = 0;
 
     fondo.src = "sounds/background.mp3";
-    fondo.volume = 0.1;
+    fondo.volume = 0.5;
 
       // Reiniciar el contador de combo
       document.getElementById("contador-combo").textContent = 0;

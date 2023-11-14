@@ -131,6 +131,20 @@ body {
     align-content: center;
 }    
 
+#tiempo-restante.cuenta-regresiva {
+  color: red;
+  animation: parpadeo 0.5s infinite alternate;
+}
+
+@keyframes parpadeo {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.5;
+  }
+}
+
 /* Estilo del modal */
 .modal {
   display: none;

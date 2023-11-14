@@ -1,3 +1,7 @@
+sonidos.src = "sounds/smack my bitch 16 bis.mp3";
+sonidos.volume = 0.3;
+sonidos.play();
+
 function iniciarJuego() {
     const dificultad = document.getElementById("dificultad").value;
     
