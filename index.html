@@ -1,205 +1,27 @@
 <!DOCTYPE html>
-<html lang="es">
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juego Parejas - Ariel Isaías</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <title>Memory Game - Inicio</title>
+    <link rel="stylesheet" href="/css/index.css">
 </head>
-
 <body>
-    <div class="container">
-        <div class="header">
-            <h2>
-                Parejas: <span>0</span> de <span id="intentos">0</span> Intentos 
-            </h2>
-            <div id="tiempo-restante">Tiempo restante: 60 segundos</div>
-        </div>
-        <div class="header">
-            <div id="info-combo">COMBO: x<span id="contador-combo">0</span></div>
-            <button id="escuchar">Music: OFF</button>
-            
-        </div>
-        <div class="cards">
-            <li class="card">
-                <div class="view front-view">
-                    <span class="material-icons">
-                        question_mark
-                    </span>
-                </div>
-                <div class="view back-view">
-                    <img src="img/img-1.png" alt="">
-                </div>
-            </li>
-            <li class="card">
-                <div class="view front-view">
-                    <span class="material-icons">
-                        question_mark
-                    </span>
-                </div>
-                <div class="view back-view">
-                    <img src="img/img-2.png" alt="">
-                </div>
-            </li>
-            <li class="card">
-                <div class="view front-view">
-                    <span class="material-icons">
-                        question_mark
-                    </span>
-                </div>
-                <div class="view back-view">
-                    <img src="img/img-3.png" alt="">
-                </div>
-            </li>
-            <li class="card">
-                <div class="view front-view">
-                    <span class="material-icons">
-                        question_mark
-                    </span>
-                </div>
-                <div class="view back-view">
-                    <img src="img/img-4.png" alt="">
-                </div>
-            </li>
-            <li class="card">
-                <div class="view front-view">
-                    <span class="material-icons">
-                        question_mark
-                    </span>
-                </div>
-                <div class="view back-view">
-                    <img src="img/img-5.png" alt="">
-                </div>
-            </li>
-            <li class="card">
-                <div class="view front-view">
-                    <span class="material-icons">
-                        question_mark
-                    </span>
-                </div>
-                <div class="view back-view">
-                    <img src="img/img-6.png" alt="">
-                </div>
-            </li>
-            <li class="card">
-                <div class="view front-view">
-                    <span class="material-icons">
-                        question_mark
-                    </span>
-                </div>
-                <div class="view back-view">
-                    <img src="img/img-7.png" alt="">
-                </div>
-            </li>
-            <li class="card">
-                <div class="view front-view">
-                    <span class="material-icons">
-                        question_mark
-                    </span>
-                </div>
-                <div class="view back-view">
-                    <img src="img/img-8.png" alt="">
-                </div>
-            </li>
-            <li class="card">
-                <div class="view front-view">
-                    <span class="material-icons">
-                        question_mark
-                    </span>
-                </div>
-                <div class="view back-view">
-                    <img src="img/img-1.png" alt="">
-                </div>
-            </li>
-            <li class="card">
-                <div class="view front-view">
-                    <span class="material-icons">
-                        question_mark
-                    </span>
-                </div>
-                <div class="view back-view">
-                    <img src="img/img-2.png" alt="">
-                </div>
-            </li>
-            <li class="card">
-                <div class="view front-view">
-                    <span class="material-icons">
-                        question_mark
-                    </span>
-                </div>
-                <div class="view back-view">
-                    <img src="img/img-3.png" alt="">
-                </div>
-            </li>
-            <li class="card">
-                <div class="view front-view">
-                    <span class="material-icons">
-                        question_mark
-                    </span>
-                </div>
-                <div class="view back-view">
-                    <img src="img/img-4.png" alt="">
-                </div>
-            </li>
-            <li class="card">
-                <div class="view front-view">
-                    <span class="material-icons">
-                        question_mark
-                    </span>
-                </div>
-                <div class="view back-view">
-                    <img src="img/img-5.png" alt="">
-                </div>
-            </li>
-            <li class="card">
-                <div class="view front-view">
-                    <span class="material-icons">
-                        question_mark
-                    </span>
-                </div>
-                <div class="view back-view">
-                    <img src="img/img-6.png" alt="">
-                </div>
-            </li>
-            <li class="card">
-                <div class="view front-view">
-                    <span class="material-icons">
-                        question_mark
-                    </span>
-                </div>
-                <div class="view back-view">
-                    <img src="img/img-7.png" alt="">
-                </div>
-            </li>
-            <li class="card">
-                <div class="view front-view">
-                    <span class="material-icons">
-                        question_mark
-                    </span>
-                </div>
-                <div class="view back-view">
-                    <img src="img/img-8.png" alt="">
-                </div>
-            </li>
-        </div>
+    <div class="inicio-container">
+        <img src="/img/Snapshot_808.JPG" alt="ABR TELEGRAM MEMORY GAME">
+        <h1>OPCIONES:</h1>
+        <label for="dificultad">Select level:</label>
+        <select id="dificultad">
+            <option value="facil">Easy</option>
+            <option value="normal">Normal</option>
+            <option value="dificil">Hard</option>
+        </select>
+        <br>
+        <!-- <label for="sonido">In game music:</label>
+        <input type="checkbox" id="sonido" checked> -->
+        <br>
+        <button onclick="iniciarJuego()">Iniciar Juego</button>
     </div>
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <p id="modal-message"></p>
-        </div>
-    </div>
-    <div id="bonus-message"></div>
-    <audio id="fondo" loop autoplay>
-        <source src="sounds/background.mp3" type="audio/mpeg">
-    </audio>
-   <audio id="sonidos" source src="" type="audio/mpeg">
-    Your browser does not support the audio element.
-   </audio>
-   
-   <script src="js/script.js"></script>
+    <script src="inicio.js"></script>
 </body>
-
 </html>

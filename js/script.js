@@ -6,12 +6,30 @@ const modal = document.getElementById("modal");
 const modalMessage = document.getElementById("modal-message");
 
 const mostrarModal = (mensaje) => {
-    modalMessage.innerHTML = mensaje.replace(/\n/g, "<br>");
+    const modalContent = document.querySelector(".modal-content");
+    modalContent.innerHTML = ""; // Limpiar el contenido existente
+
+    // Agregar mensaje "GANASTE! BIEN HECHO VIRGO!"
+    modalContent.innerHTML += "<p>GANASTE! BIEN HECHO VIRGO!</p>";
+
+    // Agregar contenido adicional (puedes personalizar según tus necesidades)
+    modalContent.innerHTML += `<div>${mensaje.replace(/\n/g, "<br>")}</div>`;
+
+    // Agregar botones
+    const buttonsContainer = document.createElement("div");
+    buttonsContainer.innerHTML = "<br><button onclick='volverAlMenu()'>Volver al Menú</button> <button onclick='reiniciarJuegoHandler()'>Reiniciar Juego</button>";
+    modalContent.appendChild(buttonsContainer);
+
     modal.style.display = "block";
 };
 
 const ocultarModal = () => {
     modal.style.display = "none";
+};
+
+const volverAlMenu = () => {
+    ocultarModal();
+    window.location.href = "index.html"; // Cambia "index.html" por la ruta correcta de tu menú principal
 };
 
 let tar_1,tar_2,deshabilitarCartas = false;
@@ -76,6 +94,26 @@ const sonidoFondo = (e) => {
 
 escuchar.addEventListener("click", sonidoFondo);
 
+function calcularPuntosTiempoRestante(tiempoRestante) {
+    let multiplicador;
+
+    if (tiempoRestante > 40) {
+        multiplicador = 8;
+    } else if (tiempoRestante > 30) {
+        multiplicador = 6;
+    } else if (tiempoRestante > 20) {
+        multiplicador = 5;
+    } else if (tiempoRestante > 10) {
+        multiplicador = 4;
+    } else {
+        multiplicador = 2;
+    }
+
+    return tiempoRestante * multiplicador;
+}
+
+
+
 const comparar = (imagen1, imagen2) => {
     intentos++;
     span_intentos.innerHTML = intentos;
@@ -85,7 +123,7 @@ const comparar = (imagen1, imagen2) => {
 
     if (imagen1 == imagen2) {
         sonidos.src = "sounds/success.mp3";
-        sonidos.volume = 1;
+        sonidos.volume = 0.9;
         sonidos.play();
         parejas++;
         num_parejas.innerHTML = parejas;
@@ -94,7 +132,7 @@ const comparar = (imagen1, imagen2) => {
 
         if (consecutivas > 1) {
             sonidos.src = "sounds/andersoniji.mp3";
-            sonidos.volume = 1;
+            sonidos.volume = 0.9;
             sonidos.play();
         }
         
@@ -102,11 +140,10 @@ const comparar = (imagen1, imagen2) => {
             sonidos.src = "sounds/youwin.mp3";
             sonidos.volume = 0.3;
             sonidos.play();
-            mostrarModal("GANASTE! BIEN HECHO VIRGO!");
 
-            setTimeout(() => {
-                detenerJuego();
-            }, 2000);
+            detenerJuego();  // Detener el temporizador aquí
+
+            // mostrarModal("GANASTE! BIEN HECHO VIRGO!");   
 
             setTimeout(() => {
                 calcularPuntuacionFinal();
@@ -114,9 +151,10 @@ const comparar = (imagen1, imagen2) => {
                 const bonificacionConsecutivas = Math.pow(2, consecutivas - 1) * 20;
 
                 const puntosIntentos = Math.max(0, 20 - intentos) * 5;
-                const puntosTiempoRestante = tiempoRestante * 2;
+                const puntosTiempoRestante = calcularPuntosTiempoRestante(tiempoRestante);
 
-                //const totalPuntos = puntuacion;
+                const totalPuntos =
+                    puntosIntentos + puntosTiempoRestante + bonificacionConsecutivas;
 
                 const desglosePuntos = `
                 Puntuación:
@@ -124,11 +162,11 @@ const comparar = (imagen1, imagen2) => {
                 Tiempo restante (${tiempoRestante} seg.): ${puntosTiempoRestante} pts
                 Bonus por combo (${consecutivas}): ${bonificacionConsecutivas} pts
                 Total: ${totalPuntos} pts
-            `;
-
+                `;
+                 
                 mostrarModal(desglosePuntos);
                 document.addEventListener("click", reiniciarJuegoHandler);
-            }, 3000);
+            }, 2000);
         }
         tar_1.removeEventListener("click", darVuelta);
         tar_2.removeEventListener("click", darVuelta);
@@ -161,9 +199,13 @@ const mostrarGameOver = (mensaje) => {
     sonidos.volume = 0.3;
     sonidos.play();
 
-    mostrarModal(mensaje);
+    // Limpiar el contenido existente del modal
+    const modalContent = document.querySelector(".modal-content");
+    modalContent.innerHTML = "";
 
-    document.addEventListener("click", reiniciarJuegoHandler);
+    // Agregar mensaje y botones
+    modalContent.innerHTML += mensaje + "<br><br><button onclick='volverAlMenu()'>Volver al Menú</button> <button onclick='reiniciarJuegoHandler()'>Reiniciar Juego</button>";
+    modal.style.display = "block";
 };
 
 
@@ -177,11 +219,12 @@ const calcularPuntuacionFinal = () => {
         puntosIntentos + puntosTiempoRestante + bonificacionConsecutivas;
 
     const desglosePuntos = `
+        GANASTE! BIEN HECHO VIRGO!
         Puntuación:
-        Intentos (${intentos}): ${puntosIntentos} pts
-        Tiempo restante (${tiempoRestante} seg.): ${puntosTiempoRestante} pts
-        Bonus por combo (${consecutivas}): ${bonificacionConsecutivas} pts
-        Total: ${totalPuntos} pts
+        <br>Intentos (${intentos}): ${puntosIntentos} pts
+        <br>Tiempo restante (${tiempoRestante} seg.): ${puntosTiempoRestante} pts
+        <br>Bonus por combo (${consecutivas}): ${bonificacionConsecutivas} pts
+        <br>Total: ${totalPuntos} pts
     `;
 
     mostrarModal(desglosePuntos);
@@ -189,6 +232,9 @@ const calcularPuntuacionFinal = () => {
     puntuacion += totalPuntos;
 
     puntuacion = Math.min(puntuacion, puntuacionMaxima);
+
+    // Mostrar botones para volver al menú principal o reiniciar el juego
+    modalMessage.innerHTML += "<br><br><button onclick='volverAlMenu()'>Volver al Menú</button> <button onclick='reiniciarJuegoHandler()'>Reiniciar Juego</button>";
 
     const reiniciarDespuesDeMostrarPuntuacion = () => {
         reiniciarJuego();

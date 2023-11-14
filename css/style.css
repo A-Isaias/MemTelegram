@@ -144,6 +144,7 @@ body {
 
 .modal-content {
   background-color: black;
+  font-size: 26px;
   color: red;
   text-align: center;
   padding: 20px;
@@ -154,64 +155,67 @@ body {
 }
 
 /* Agregar animación si deseas */
-.modal-content p {
-  font-size: 24px;
+.modal-content p.puntuacion-final {
+  font-size: 30px; /* Ajusta el tamaño de fuente según sea necesario */
+  color: white; /* Ajusta el color del texto según sea necesario */
+  font-weight: bold; /* Otras propiedades de estilo según sea necesario */
 }
+
 
 /* Tamaño de las imágenes para resoluciones mayores a 800x600 */
 @media screen and (min-width: 800px) {
-    .container {
-      width: 550px; /* Ajusta el valor según sea necesario */
-      height: 550px; /* Ajusta el valor según sea necesario */
-    }
-  
-    .cards {
-      height: 450px; /* Ajusta el valor según sea necesario */
-      width: 500px; /* Ajusta el valor según sea necesario */
-    }
-  
-    .card .back-view img {
-      max-width: 100%; /* Mantiene las proporciones */
-      max-height: 90%; /* Mantiene las proporciones */
-      width: 120px; /* Ajusta el valor según sea necesario */
-    }
+  .container {
+    width: 300px; /* Ajusta el valor según sea necesario */
+    height: 300px; /* Ajusta el valor según sea necesario */
   }
 
-  /* Tamaño de las imágenes para resoluciones mayores a 1024x768 */
-@media screen and (min-width: 1024px) {
-    .container {
-      width: 650px; /* Ajusta el valor según sea necesario */
-      height: 650px; /* Ajusta el valor según sea necesario */
-    }
-  
-    .cards {
-      height: 540px; /* Ajusta el valor según sea necesario */
-      width: 600px; /* Ajusta el valor según sea necesario */
-    }
-  
-    .card .back-view img {
-      max-width: 100%; /* Mantiene las proporciones */
-      max-height: 90%; /* Mantiene las proporciones */
-      width: 120px; /* Ajusta el valor según sea necesario */
-    }
+  .cards {
+    height: 200px; /* Ajusta el valor según sea necesario */
+    width: 250px; /* Ajusta el valor según sea necesario */
   }
+
+  .card .back-view img {
+    max-width: 100%; /* Mantiene las proporciones */
+    max-height: 90%; /* Mantiene las proporciones */
+    width: 120px; /* Ajusta el valor según sea necesario */
+  }
+}
+
+/* Tamaño de las imágenes para resoluciones mayores a 1024x768 */
+@media screen and (min-width: 1024px) {
+  .container {
+    width: 400px; /* Ajusta el valor según sea necesario */
+    height: 400px; /* Ajusta el valor según sea necesario */
+  }
+
+  .cards {
+    height: 300px; /* Ajusta el valor según sea necesario */
+    width: 350px; /* Ajusta el valor según sea necesario */
+  }
+
+  .card .back-view img {
+    max-width: 100%; /* Mantiene las proporciones */
+    max-height: 90%; /* Mantiene las proporciones */
+    width: 120px; /* Ajusta el valor según sea necesario */
+  }
+}
 
 
 /* Tamaño de las imágenes para resoluciones mayores a 1366x768 */
-@media screen and (min-width: 1365px) {
-    .container {
-      width: 720px; /* Ajusta el valor según sea necesario */
-      height: 720px; /* Ajusta el valor según sea necesario */
-    }
-  
-    .cards {
-      height: 600px; /* Ajusta el valor según sea necesario */
-      width: 670px; /* Ajusta el valor según sea necesario */
-    }
-  
-    .card .back-view img {
-      max-width: 100%; /* Mantiene las proporciones */
-      max-height: 90%; /* Mantiene las proporciones */
-      width: 120px; /* Ajusta el valor según sea necesario */
-    }
+@media screen and (min-width: 1366px) {
+  .container {
+    width: 600px; /* Ajusta el valor según sea necesario */
+    height: 600px; /* Ajusta el valor según sea necesario */
   }
+
+  .cards {
+    height: 500px; /* Ajusta el valor según sea necesario */
+    width: 550px; /* Ajusta el valor según sea necesario */
+  }
+
+  .card .back-view img {
+    max-width: 100%; /* Mantiene las proporciones */
+    max-height: 90%; /* Mantiene las proporciones */
+    width: 120px; /* Ajusta el valor según sea necesario */
+  }
+}

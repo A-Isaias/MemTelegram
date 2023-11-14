@@ -1,0 +1,79 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* background-color: #f0f0f0; */
+    background-color: black;
+}
+
+.inicio-container {
+    text-align: center;
+    max-width: 500px; /*tamaño del contenedor*/
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Añade estas reglas para centrar el texto en el selector de nivel */
+label[for="dificultad"] {
+    display: block;
+    margin-bottom: 10px;
+}
+
+#dificultad {
+    width: 100%; /* Haz que el selector ocupe el 100% del ancho disponible */
+    padding: 10px; /* Añade un relleno para mejorar la apariencia */
+    font-size: 1em; /* Ajusta el tamaño del texto según sea necesario */
+    margin-bottom: 20px; /* Espaciado inferior para separar del botón */
+}
+
+/* centrar el texto dentro del selector */
+#dificultad option {
+    text-align: center;
+}
+
+button {
+    margin-top: 30px;
+    padding: 15px 30px;
+    font-size: 1.5em;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+/* Agrega estilos al selector de nivel de dificultad */
+#dificultad {
+    font-size: 1.5em; /* Tamaño de fuente */
+    padding: 10px; /* Espaciado interno */
+    width: 50%; /* Ancho del selector, ajusta según sea necesario */
+    border: 1px solid #ccc; /* Borde del selector */
+    border-radius: 5px; /* Bordes redondeados */
+    margin-bottom: 15px; /* Espaciado inferior */
+}
+
+/* Estilos para el texto del selector de nivel de dificultad */
+label {
+    display: block; /* Asegura que la etiqueta sea una línea completa */
+    margin-bottom: 10px; /* Espaciado inferior */
+    font-size: 2em; /* Tamaño de fuente */
+    color: #333; /* Color del texto */
+}
