@@ -250,7 +250,14 @@ const irAHighscores = (event) => {
     const botonReiniciarJuego = document.querySelector("button[onclick='reiniciarJuegoHandler()']");
 
     if (!botonVolverMenu.contains(event.target) && !botonReiniciarJuego.contains(event.target)) {
-        window.location.href = "highscores.html";
+        event.stopPropagation(); // Evitar que el evento se propague al documento
+
+        // Solo mostrar el prompt si se cumplen las condiciones para un nuevo highscore
+        if (puntuacion > puntajeMinimo || highscores.length < 10) {
+            manejarNuevoHighscore();
+        } else {
+            window.location.href = "highscores.html";
+        }
     }
 };
 
@@ -346,7 +353,7 @@ const manejarNuevoHighscore = () => {
     // Puedes personalizar el formulario según tus necesidades
     const nombreJugador = prompt("Ingresa tu nombre para guardar el highscore:");
 
-    if (nombreJugador) {
+    if (nombreJugador !== null) { // Verificar que el usuario no haya cancelado el prompt
         const nuevoHighscore = {
             nombre: nombreJugador,
             puntuacion: puntuacion,
@@ -356,17 +363,19 @@ const manejarNuevoHighscore = () => {
         guardarHighscores(nuevoHighscore)
             .then(() => {
                 console.log("Highscore guardado correctamente.");
+                // Redirigir a la página de highscores
+                window.location.href = "highscores.html";
             })
             .catch((error) => {
                 console.error("Error al guardar highscore:", error);
+                reiniciarJuegoHandler();
             });
-
-        // Redirigir a la página de highscores
-        window.location.href = "highscores.html";
     } else {
+        // Usuario canceló el prompt, puedes manejar esto como desees
         reiniciarJuegoHandler();
     }
 };
+
 const cargarHighscores = () => {
     return fetch("db/highscores.json")
         .then((response) => response.json())
